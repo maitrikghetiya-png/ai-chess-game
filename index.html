@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>♟️ AI Chess Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>♟️ AI Chess</h1>
+      <p class="tagline">Play chess against an AI opponent</p>
+    </header>
+
+    <main class="layout">
+      <!-- Left: captured pieces for opponent + board -->
+      <section class="board-section">
+        <div class="player-bar" id="bar-top">
+          <span class="player-name" id="name-top">Black</span>
+          <div class="captured" id="captured-top"></div>
+        </div>
+
+        <div class="board-wrapper">
+          <div id="board" class="board" aria-label="Chess board"></div>
+        </div>
+
+        <div class="player-bar" id="bar-bottom">
+          <span class="player-name" id="name-bottom">White</span>
+          <div class="captured" id="captured-bottom"></div>
+        </div>
+      </section>
+
+      <!-- Right: controls + status + move history -->
+      <aside class="side-panel">
+        <div class="card">
+          <div class="status" id="status">White to move</div>
+          <div class="turn-indicator">
+            <span class="dot" id="turn-dot"></span>
+            <span id="turn-text">White's turn</span>
+          </div>
+        </div>
+
+        <div class="card controls">
+          <h2>Controls</h2>
+
+          <label class="field">
+            <span>Play as</span>
+            <select id="side-select">
+              <option value="white">White</option>
+              <option value="black">Black</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Difficulty</span>
+            <select id="difficulty-select">
+              <option value="easy">🟢 Easy</option>
+              <option value="medium" selected>🟡 Medium</option>
+              <option value="hard">🔴 Hard</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Opponent</span>
+            <select id="mode-select">
+              <option value="ai">AI</option>
+              <option value="human">Two Players</option>
+              <option value="online">Online</option>
+            </select>
+          </label>
+
+          <div class="buttons">
+            <button id="new-game" class="btn primary">New Game</button>
+            <button id="undo" class="btn">Undo</button>
+            <button id="flip" class="btn">Flip Board</button>
+          </div>
+        </div>
+
+        <!-- Online multiplayer panel -->
+        <div class="card online-card hidden" id="online-card">
+          <h2>Online Match</h2>
+          <div id="online-lobby">
+            <div class="buttons">
+              <button id="create-room" class="btn primary">Create Room</button>
+            </div>
+            <div class="join-row">
+              <input id="join-code" class="code-input" maxlength="5" placeholder="CODE" autocomplete="off" />
+              <button id="join-room" class="btn">Join</button>
+            </div>
+          </div>
+          <div id="online-room" class="hidden">
+            <div class="room-code-row">
+              <span class="room-label">Room code</span>
+              <span class="room-code" id="room-code">-----</span>
+              <button id="copy-code" class="btn small">Copy</button>
+            </div>
+            <div class="conn-status" id="conn-status">Connecting…</div>
+          </div>
+          <div class="buttons online-actions hidden" id="online-actions">
+            <button id="resign" class="btn danger">Resign</button>
+            <button id="leave" class="btn">Leave</button>
+          </div>
+        </div>
+
+        <div class="card history-card">
+          <h2>Move History</h2>
+          <ol id="history" class="history"></ol>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Promotion dialog -->
+  <div id="promotion-overlay" class="overlay hidden">
+    <div class="promotion-dialog">
+      <h3>Promote pawn to</h3>
+      <div class="promotion-choices" id="promotion-choices"></div>
+    </div>
+  </div>
+
+  <!-- Game over dialog -->
+  <div id="gameover-overlay" class="overlay hidden">
+    <div class="gameover-dialog">
+      <h3 id="gameover-title">Game Over</h3>
+      <p id="gameover-text"></p>
+      <button id="gameover-new" class="btn primary">New Game</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
